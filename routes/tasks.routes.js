@@ -40,17 +40,12 @@ router.post('/',async(req,res)=>{
         msg = 'Updated Successfully'
         editvalueId = ''
     }
-    /* res.render('list',{tasks,editvalue}) */
-    
     res.redirect('/')
 })
 
 // edit task
 router.get('/edit/:id',async(req,res)=>{
     editvalueId = req.params.id
-
-    /* index = req.query.index */
-    /* res.render('list',{tasks,editvalueId}) */
     res.redirect('/')
 })
 //delete tasks
