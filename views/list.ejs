@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO-list</title>
+    <link rel="stylesheet" href="list-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <!-- <script src="kit.fontawesome.com" crossorigin="anonymous"></script> -->
+</head>
+<body>
+    <% console.log(msg) %>
+    <div class="overlay"></div>
+    <div class="alertbox">
+            <div class="alertmsg">
+                <h2>Please enter a task!</h2>
+            </div>
+            <button class="btn alertbtn">Ok</button>
+    </div>
+    <%if(msg !=''){%>
+        <div class="msg"><%-msg%></div>
+    <%}%>
+    <div class="container">
+        <div class="heading">
+            <h1>TODO-list</h1>
+            <span></span>
+        </div>
+        <div class="task-container">
+            <ul class="tasks">
+                <% if(tasks.length == 0){%>
+                    <div class="task-msg">
+                        <h2>No Task</h2>
+                    </div>
+                <%} %>
+                <%tasks.forEach((task,index)=>{%>
+                    <%let displayP=null,colorP=''
+                     if(task.priority<3){
+                        if(task.priority<2){
+                            displayP='U'
+                            colorP='green'
+                        }else{
+                            displayP='H'
+                            colorP='orange'
+                        }
+                    }else{
+                        displayP='L'
+                        colorP='gray'
+                    }
+                    %>
+                        
+                    <li class="task">
+                        <div>
+                            <input type="checkbox" id="checkbox<%=index%>">
+                            <label for="checkbox<%=index%>"><%=task.task%></label>
+                        </div>
+                        <div>
+                            <div class="priority <%- colorP %>"><%- displayP %></div>
+                            <a class="editTask" href="/edit/<%=task._id%>"><img class="editIcon" src="icons/edit-button-svgrepo-com.svg"></a>
+                            <a href="/delete/<%=task._id%>"><span>X</span></a>
+                        </div>
+                    </li>
+                <%})%>
+            </ul>
+        </div>
+        <form action="/" method="POST">
+            <input type="text" placeholder="Enter Task" <%if(editTask !=""){%> autofocus value="<%= editTask %>"<%editTask=""}%> name="task">
+            <select id="priority" name="priority" >
+                <div>
+                    <option value="1" for="priority">Urgent</option>
+                    <option value="2" for="priority">High</option>
+                    <option value="3" for="priority">low</option>
+                </div>
+            </select>
+            <button class=" btn">Add</button>
+        </form>
+    </div>
+    <script>
+        // no task message overlay.....
+        const taskInput = document.querySelector('form input')
+        const alertbox = document.querySelector('.alertbox')
+        const alertbtn = document.querySelector('.alertbtn')
+        const overlay = document.querySelector('.overlay')
+        document.querySelector('form').addEventListener('submit',(e)=>{
+            if(taskInput.value==''){
+                alertbox.style.transform='scale(1)'
+                overlay.style.backgroundColor = 'rgba(0,0,0,0.6)'
+                overlay.style.scale = 1
+                e.preventDefault()
+            }
+        })
+        alertbtn.addEventListener('click',()=>{
+            alertbox.style.transform='scale(0)'
+            overlay.style.backgroundColor = 'rgba(0,0,0,0)'
+            overlay.style.scale = 0
+        })
+
+        // add scrollbar
+        const tasks =document.querySelector('.tasks')
+        const taskContainer =document.querySelector('.task-container')
+        const tasksHeight =tasks.offsetHeight
+        if(tasksHeight >= 337){
+            taskContainer.classList.add('scrollbar')
+        }
+
+        // removing spaces at the start or end of input
+        taskInput.addEventListener('blur',(e)=>{
+            taskInput.value = taskInput.value.trim()
+        })
+
+        //update message
+        const addBtn =document.querySelector('.addBtn')
+        addBtn.addEventListener('click',(e)=>{
+            console.log(e.target)
+            alertbox('ok')
+        })
+    </script>
+</body>
+</html>
