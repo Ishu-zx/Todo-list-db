@@ -3,7 +3,7 @@
 A lightweight, high-performance task management application designed to streamline daily productivity. This project serves as a practical implementation of CRUD (Create, Read, Update, Delete) operations, utilizing a clean user interface to help users organize their thoughts, manage time effectively, and track progress without unnecessary complexity.
 
 # Link to applicattion
-🔗 g[To-Do List](https://todo-list-db-o1j5.onrender.com/)
+🔗 [To-Do List](https://todo-list-db-o1j5.onrender.com/)
 
 # ✨ Features
  * Add, Edit, & Delete tasks easily.
