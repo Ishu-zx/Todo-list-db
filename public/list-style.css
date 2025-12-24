@@ -295,4 +295,9 @@ form input:focus{
  li span, .priority, .editTask{
     scale: .8;
  }
+
+ /* delete and update msg */
+ .msg{
+    left:30%;
+ }
 }
